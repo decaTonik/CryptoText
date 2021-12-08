@@ -58,6 +58,8 @@ public class SetupActivity extends AppCompatActivity{
     StorageReference StorageRef;
     ProgressDialog mLoadingBar;
 
+    Toolbar toolbar;
+
     String privateKeyBytesBase64;
     String publicKeyBytesBase64;
 
@@ -65,6 +67,10 @@ public class SetupActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup);
+
+        toolbar=findViewById(R.id.app_bar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Set Profile");
 
         profileImageView = findViewById(R.id.profile_image);
         inputName = findViewById(R.id.inputName);
