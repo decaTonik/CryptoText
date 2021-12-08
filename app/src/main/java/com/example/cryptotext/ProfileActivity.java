@@ -3,7 +3,9 @@ package com.example.cryptotext;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -28,6 +30,7 @@ public class ProfileActivity extends AppCompatActivity {
     DatabaseReference mUserRef;
     FirebaseAuth mAuth;
     FirebaseUser mUser;
+    ProgressDialog mLoadingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,7 @@ public class ProfileActivity extends AppCompatActivity {
         inputAge=findViewById(R.id.inputCity);
         inputCity=findViewById(R.id.inputAge);
         btnUpdate=findViewById(R.id.btnUpdate);
+        mLoadingBar = new ProgressDialog(this);
 
         mAuth=FirebaseAuth.getInstance();
         mUser=mAuth.getCurrentUser();
@@ -60,12 +64,24 @@ public class ProfileActivity extends AppCompatActivity {
                     inputAge.setText(age);
                     inputUsername.setText(username);
 
+                    btnUpdate.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            UpdateData();
+                        }
+                    });
+
 
                 }
                 else
                 {
                     Toast.makeText(ProfileActivity.this, "Data not exist", Toast.LENGTH_SHORT).show();
                 }
+            }
+
+            private void UpdateData() {
+
+
             }
 
             @Override

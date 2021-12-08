@@ -1,9 +1,6 @@
 package com.example.cryptotext;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import com.example.cryptotext.SetupActivity;
 
 public class RSA extends SetupActivity {
 
