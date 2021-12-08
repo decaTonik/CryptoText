@@ -9,9 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CryptoText">
-        <activity android:name=".RSA"></activity>
+        <activity android:name=".ImageEncryptionActivity"></activity>
+        <activity android:name=".AES" />
+        <activity android:name=".RSA" />
         <activity android:name=".SetupActivity" />
-        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>

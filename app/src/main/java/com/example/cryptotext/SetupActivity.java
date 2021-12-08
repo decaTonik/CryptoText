@@ -17,7 +17,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SetupActivity extends AppCompatActivity {
 
-    ImageButton logout, rsa, aes;
+    ImageButton logout, rsa, aes, imageEncrypt;
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -33,6 +33,7 @@ public class SetupActivity extends AppCompatActivity {
 
         rsa = findViewById(R.id.rsa);
         aes = findViewById(R.id.aes);
+        imageEncrypt = findViewById(R.id.image_encryption);
 
         toolbar = findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
@@ -44,6 +45,24 @@ public class SetupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), RSA.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
+        aes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), AES.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
+        imageEncrypt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), ImageEncryptionActivity.class);
                 startActivity(i);
                 finish();
             }
