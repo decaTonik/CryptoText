@@ -30,39 +30,31 @@
                 android:layout_marginTop="32dp"
                 android:text="Choose Algorithm"
                 android:textColor="@color/orange"
-                android:textSize="18sp"
+                android:textSize="24sp"
                 android:textStyle="bold" />
 
             <ImageButton
                 android:id="@+id/rsa"
-                android:layout_width="175dp"
-                android:layout_height="75dp"
+                android:layout_width="250dp"
+                android:layout_height="150dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="32dp"
                 android:background="@drawable/rsa_btn" />
 
             <ImageButton
                 android:id="@+id/aes"
-                android:layout_width="175dp"
-                android:layout_height="75dp"
+                android:layout_width="250dp"
+                android:layout_height="150dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="32dp"
                 android:background="@drawable/aes_btn" />
 
             <ImageButton
                 android:id="@+id/image_encryption"
-                android:layout_width="175dp"
-                android:layout_height="75dp"
+                android:layout_width="250dp"
+                android:layout_height="150dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="60dp"
-                android:background="@drawable/aes_btn" />
-
-            <ImageButton
-                android:id="@+id/video_encryption"
-                android:layout_width="175dp"
-                android:layout_height="75dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="32dp"
                 android:background="@drawable/aes_btn" />
 
         </LinearLayout>

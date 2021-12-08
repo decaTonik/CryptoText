@@ -88,7 +88,7 @@ public class SetupActivity extends AppCompatActivity implements NavigationView.O
         switch(item.getItemId())
         {
             case R.id.home:
-                Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(SetupActivity.this, SetupActivity.class));
                 break;
             case R.id.profile:
                 startActivity(new Intent(SetupActivity.this, ProfileActivity.class));
