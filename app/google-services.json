@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "24050604592",
+    "project_id": "cryptotext-635af",
+    "storage_bucket": "cryptotext-635af.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24050604592:android:604cd49af9a06931b86bf5",
+        "android_client_info": {
+          "package_name": "com.example.cryptotext"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24050604592-675pogammd6vbnno3ottftbmjoqnm8nm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMJUAyJeoxUGxL2UghKLGQft478XUgsNg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24050604592-675pogammd6vbnno3ottftbmjoqnm8nm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
