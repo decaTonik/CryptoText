@@ -6,4 +6,57 @@
     android:layout_height="match_parent"
     tools:context=".SetupActivity">
 
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/main_appbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_bar">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="32dp"
+            android:text="Choose Algorithm"
+            android:textColor="@color/orange"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/rsa"
+            android:layout_width="175dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/rsa_btn" />
+
+        <ImageButton
+            android:id="@+id/aes"
+            android:layout_width="175dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/aes_btn" />
+
+        <ImageButton
+            android:id="@+id/image_encryption"
+            android:layout_width="175dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/aes_btn" />
+
+        <ImageButton
+            android:id="@+id/video_encryption"
+            android:layout_width="175dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/aes_btn" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
