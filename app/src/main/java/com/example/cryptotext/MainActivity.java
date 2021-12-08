@@ -18,8 +18,13 @@ package com.example.cryptotext;
         import com.google.android.material.navigation.NavigationView;
         import com.google.firebase.auth.FirebaseAuth;
         import com.google.firebase.auth.FirebaseUser;
+        import com.google.firebase.database.DataSnapshot;
+        import com.google.firebase.database.DatabaseError;
         import com.google.firebase.database.DatabaseReference;
+        import com.google.firebase.database.FirebaseDatabase;
+        import com.google.firebase.database.ValueEventListener;
         import com.google.firebase.storage.StorageReference;
+        import com.squareup.picasso.Picasso;
 
         import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -34,8 +39,44 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     TextView usernameHeader;
     FirebaseAuth mAuth;
     FirebaseUser mUser;
-    DatabaseReference mRef;
-    StorageReference StorageRef;
+    DatabaseReference mUserRef;
+    String profileImageUrlV,userNameV;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(mUser == null)
+        {
+            SendUserToLoginActivity();
+        }
+        else
+        {
+            mUserRef.child(mUser.getUid()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists())
+                    {
+                        profileImageUrlV = snapshot.child("ImageUrl").getValue().toString();
+                        userNameV = snapshot.child("name").getValue().toString();
+                        Picasso.get().load(profileImageUrlV).into(profileImageHeader);
+                        usernameHeader.setText(userNameV);
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(MainActivity.this, "Sorry!, Something went Wrong", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    private void SendUserToLoginActivity() {
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -65,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
+        mUserRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
         rsa.setOnClickListener(new View.OnClickListener() {
             @Override
