@@ -1,78 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SetupActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/main_appbar" />
 
-        <include
-            android:id="@+id/app_bar"
-            layout="@layout/main_appbar" />
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="40dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_bar">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/app_bar">
+            android:layout_height="match_parent">
 
-            <TextView
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:layout_marginTop="32dp"
+                android:src="@drawable/profile"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/inputName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="32dp"
-                android:text="Choose Algorithm"
-                android:textColor="@color/orange"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_marginTop="24dp"
+                android:ems="10"
+                android:hint="Full Name"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profile_image" />
 
-            <ImageButton
-                android:id="@+id/rsa"
-                android:layout_width="175dp"
-                android:layout_height="75dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="32dp"
-                android:background="@drawable/rsa_btn" />
+            <EditText
+                android:id="@+id/inputCity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:ems="10"
+                android:hint="City"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputName" />
 
-            <ImageButton
-                android:id="@+id/aes"
-                android:layout_width="175dp"
-                android:layout_height="75dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="60dp"
-                android:background="@drawable/aes_btn" />
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Save"
+                app:layout_constraintEnd_toEndOf="@+id/inputAge"
+                app:layout_constraintStart_toStartOf="@+id/inputAge"
+                app:layout_constraintTop_toBottomOf="@+id/inputAge" />
 
-            <ImageButton
-                android:id="@+id/image_encryption"
-                android:layout_width="175dp"
-                android:layout_height="75dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="60dp"
-                android:background="@drawable/aes_btn" />
+            <EditText
+                android:id="@+id/inputAge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:ems="10"
+                android:hint="Age"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputCity" />
 
-            <ImageButton
-                android:id="@+id/video_encryption"
-                android:layout_width="175dp"
-                android:layout_height="75dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="60dp"
-                android:background="@drawable/aes_btn" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:menu="@menu/drawer_menu" />
 
-</androidx.drawerlayout.widget.DrawerLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
