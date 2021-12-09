@@ -154,7 +154,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 invite();
                 break;
             case R.id.logout:
-                Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
+                mAuth.signOut();
+                Intent intent=new Intent(MainActivity.this,LoginActivity.class);
+                startActivity(intent);
+                finish();
                 break;
         }
         return true;
