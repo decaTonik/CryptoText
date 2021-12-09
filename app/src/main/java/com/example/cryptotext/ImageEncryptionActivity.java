@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 
 import android.net.Uri;
@@ -37,7 +40,7 @@ public class    ImageEncryptionActivity extends AppCompatActivity {
 
     private final int req = 1;
     ImageView imageEncryptionInput;
-    Button enc_btn, add_btn;
+    Button enc_btn, clear_btn;
     ImageButton main_enc, main_dec, main_enc_orange, main_dec_orange, send_btn, cpy_btn;
     ConstraintLayout downC, UPc;
     ImageView output;
@@ -70,7 +73,7 @@ public class    ImageEncryptionActivity extends AppCompatActivity {
         main_enc_orange = findViewById(R.id.imageEncryption_enc_orange);
         main_dec_orange = findViewById(R.id.imageEncryption_decrypt_orange);
         enc_btn = findViewById(R.id.imageEncryption_encrypt_btn);
-        add_btn = findViewById(R.id.imageEncryption_add);
+        clear_btn = findViewById(R.id.imageEncryption_clear);
         cpy_btn = findViewById(R.id.imageEncryption_copy);
         send_btn = findViewById(R.id.imageEncryption_send);
         downC = findViewById(R.id.imageEncryption_constraintLayout);
@@ -88,7 +91,11 @@ public class    ImageEncryptionActivity extends AppCompatActivity {
                 main_dec_orange.setVisibility(View.INVISIBLE);
                 send_btn.setVisibility(View.INVISIBLE);
                 cpy_btn.setVisibility(View.INVISIBLE);
-                enc_btn.setText("ENCRYPT");
+                if(uri == null)
+                    enc_btn.setText("Add image");
+                else
+                    enc_btn.setText("Encrypt");
+
                 input_TV.setText("Message");
                 output_TV.setText("Encrypted Message");
                 imageEncryptionInput.setVisibility(View.VISIBLE);
@@ -100,32 +107,77 @@ public class    ImageEncryptionActivity extends AppCompatActivity {
                 enc_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        InputStream iStream = null;
-                        try {
-                            iStream = getContentResolver().openInputStream(uri);
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
+                        if(uri != null) {
+                            InputStream iStream = null;
+                            try {
+                                iStream = getContentResolver().openInputStream(uri);
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            }
+                            byte[] imageBytes = new byte[0];
+                            try {
+                                imageBytes = getBytes(iStream);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                String EncryptedImage = aes_Encrypt(imageBytes, password);
+                                encryptedImageText.setText(EncryptedImage);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            cpy_btn.setVisibility(View.VISIBLE);
+                            send_btn.setVisibility(View.VISIBLE);
                         }
-                        byte[] imageBytes = new byte[0];
-                        try {
-                            imageBytes = getBytes(iStream);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            String EncryptedImage = aes_Encrypt(imageBytes,password );
-                            encryptedImageText.setText(EncryptedImage);
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                        else{
+                            Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(galleryIntent,req);
+
+
                         }
 
                     }
                 });
-                add_btn.setOnClickListener(new View.OnClickListener() {
+                clear_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        startActivityForResult(galleryIntent,req);
+                        int sex = 0;
+                        if(enc_btn.getText().toString() == "Encrypt") {
+                            uri = null;
+                            imageEncryptionInput.setImageURI(null);
+                            enc_btn.setText("Add Image");
+                            encryptedImageText.setText("");
+                            cpy_btn.setVisibility(View.INVISIBLE);
+                            send_btn.setVisibility(View.INVISIBLE);
+                        }
+                        else if(enc_btn.getText().toString() == "Decrypt"){
+                            encryptedImage.setText("");
+                            output.setImageURI(null);
+                        }
+
+                    }
+                });
+
+                cpy_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                        ClipData clip = ClipData.newPlainText("public", encryptedImageText.getText());
+                        clipboard.setPrimaryClip(clip);
+                        Toast.makeText(ImageEncryptionActivity.this, "Encrypted Text Copied", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+                send_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent sendIntent = new Intent();
+                        sendIntent.setAction(Intent.ACTION_SEND);
+                        sendIntent.putExtra(Intent.EXTRA_TEXT,encryptedImageText.getText().toString());
+                        sendIntent.setType("text/plain");
+
+                        Intent shareIntent = Intent.createChooser(sendIntent, null);
+                        startActivity(shareIntent);
 
                     }
                 });
@@ -153,7 +205,7 @@ public class    ImageEncryptionActivity extends AppCompatActivity {
                 encryptedImage.setVisibility(View.VISIBLE);
                 output.setVisibility(View.VISIBLE);
                 encryptedImageText.setVisibility(View.INVISIBLE);
-                enc_btn.setText("DECRYPT");
+                enc_btn.setText("Decrypt");
 
                 enc_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -188,6 +240,7 @@ public class    ImageEncryptionActivity extends AppCompatActivity {
         {
             uri = data.getData();
             imageEncryptionInput.setImageURI(uri);
+            enc_btn.setText("Encrypt");
         }
         else{
             Toast.makeText(ImageEncryptionActivity.this, "Add valid image", Toast.LENGTH_SHORT).show();

@@ -94,12 +94,12 @@
                     android:layout_height="48dp"
                     android:layout_marginStart="48dp"
                     android:layout_marginTop="16dp"
-                    android:text="Encrypt"
+                    android:text="Add image"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageEncryption_inputImage" />
 
                 <Button
-                    android:id="@+id/imageEncryption_add"
+                    android:id="@+id/imageEncryption_clear"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:layout_marginEnd="48dp"
