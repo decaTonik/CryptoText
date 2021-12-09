@@ -27,13 +27,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ViewFriendActivity extends AppCompatActivity {
 
-    DatabaseReference mUserRef, requestRef, friendRef;
+    DatabaseReference mUserRef, mUserRef1, requestRef, friendRef;
     FirebaseAuth mAuth;
     FirebaseUser mUser;
 
     CircleImageView profileImage;
     TextView name;
-    String ImageUrl, username, publicKey;
+    String ImageUrl, username, publicKey, ImageUrl1, username1, publicKey1;
     Button btnPerform, btnDecline;
     String currentState = "nothing_happen";
 
@@ -45,11 +45,13 @@ public class ViewFriendActivity extends AppCompatActivity {
         final String userID = getIntent().getStringExtra("userKey");
         setContentView(R.layout.activity_view_friend);
 
-        mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
+
         requestRef = FirebaseDatabase.getInstance().getReference().child("Requests");
         friendRef = FirebaseDatabase.getInstance().getReference().child("Friends");
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
+        mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
+        mUserRef1 = FirebaseDatabase.getInstance().getReference().child("Users").child(mUser.getUid());
         profileImage = findViewById(R.id.profileImageF);
         name = findViewById(R.id.usernameF);
         btnPerform = findViewById(R.id.btnPerform);
@@ -276,7 +278,12 @@ public class ViewFriendActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task task) {
                                 if(task.isSuccessful())
                                 {
-                                    friendRef.child(userID).child(mUser.getUid()).updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener() {
+                                    HashMap hashMap1 = new HashMap();
+                                    hashMap1.put("status", "friend");
+                                    hashMap1.put("name", username1);
+                                    hashMap1.put("ImageUrl", ImageUrl1);
+                                    hashMap1.put("public", publicKey1);
+                                    friendRef.child(userID).child(mUser.getUid()).updateChildren(hashMap1).addOnCompleteListener(new OnCompleteListener() {
                                         @Override
                                         public void onComplete(@NonNull Task task) {
                                             Toast.makeText(ViewFriendActivity.this, "Friend Added", Toast.LENGTH_SHORT).show();
@@ -317,5 +324,23 @@ public class ViewFriendActivity extends AppCompatActivity {
                 Toast.makeText(ViewFriendActivity.this, "Data Not Found", Toast.LENGTH_SHORT).show();
             }
         });
+
+        mUserRef1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists())
+                {
+                    ImageUrl1 = snapshot.child("ImageUrl").getValue().toString();
+                    username1 = snapshot.child("name").getValue().toString();
+                    publicKey1 = snapshot.child("publicKey").getValue().toString();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 }
