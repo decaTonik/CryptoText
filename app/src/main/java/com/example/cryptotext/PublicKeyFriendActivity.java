@@ -43,7 +43,7 @@ public class PublicKeyFriendActivity extends AppCompatActivity {
     Toolbar toolbar;
     RecyclerView recyclerView;
     FirebaseAuth mAuth;
-    DatabaseReference mRef, mRef1, mRef2;
+    DatabaseReference mRef, mRef1;
     FirebaseUser mUser;
     String publicKey;
 
@@ -63,7 +63,6 @@ public class PublicKeyFriendActivity extends AppCompatActivity {
         mUser=mAuth.getCurrentUser();
         mRef= FirebaseDatabase.getInstance().getReference().child("Friends");
         mRef1 = FirebaseDatabase.getInstance().getReference().child("Friends").child(mUser.getUid());
-        mRef2 = FirebaseDatabase.getInstance().getReference().child("Friends").child(mRef1.getKey().toString());
 
 
         LoadFriends("");
@@ -81,14 +80,17 @@ public class PublicKeyFriendActivity extends AppCompatActivity {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mRef2.addValueEventListener(new ValueEventListener() {
+                        mRef1.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if(snapshot.exists())
+                                for(DataSnapshot sp : snapshot.getChildren())
                                 {
-                                    publicKey = snapshot.getValue().toString();
-                                    Toast.makeText(PublicKeyFriendActivity.this, "hello", Toast.LENGTH_SHORT).show();
+                                    publicKey = sp.child("public").getValue().toString();
                                 }
+                                Intent intent=new Intent();
+                                intent.putExtra("RESULT_STRING", publicKey);
+                                setResult(RESULT_OK, intent);
+                                finish();
                             }
 
                             @Override
