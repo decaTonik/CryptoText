@@ -110,9 +110,9 @@ public class ViewFriendActivity extends AppCompatActivity {
                     if(task.isSuccessful())
                     {
                         Toast.makeText(ViewFriendActivity.this, "Friend Request Declined", Toast.LENGTH_SHORT).show();
-                        currentState = "he_sent_decline";
+                        currentState = "nothing_happen";
                         btnDecline.setVisibility(View.GONE);
-                        btnPerform.setVisibility(View.GONE);
+                        btnPerform.setText("Send Friend Request");
                     }
                 }
             });
