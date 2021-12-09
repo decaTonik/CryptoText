@@ -118,10 +118,8 @@ public class FindFriendActivity extends AppCompatActivity implements NavigationV
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         mUserRef = FirebaseDatabase.getInstance().getReference().child("Users");
-        //mUserRef1 = FirebaseDatabase.getInstance().getReference().child("Users");
         
         LoadUser("");
-
     }
 
     private void LoadUser(String s) {
@@ -140,6 +138,15 @@ public class FindFriendActivity extends AppCompatActivity implements NavigationV
                     holder.itemView.setVisibility(View.GONE);
                     holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
                 }
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(FindFriendActivity.this, ViewFriendActivity.class);
+                        intent.putExtra("userKey", getRef(position).getKey().toString());
+                        startActivity(intent);
+                    }
+                });
 
             }
 
