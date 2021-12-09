@@ -118,6 +118,12 @@ public class RSA extends SetupActivity {
                 main_dec_orange.setVisibility(View.INVISIBLE);
                 main_dec.setVisibility(View.VISIBLE);
                 UPc.setVisibility(View.VISIBLE);
+                main_dec_orange.setVisibility(View.INVISIBLE);
+                UPc.setVisibility(View.VISIBLE);
+                send_btn.setVisibility(View.INVISIBLE);
+                cpy_btn.setVisibility(View.INVISIBLE);
+                new_btn.setVisibility(View.INVISIBLE);
+                downC.setVisibility(View.INVISIBLE);
 
                 friendbtn.setOnClickListener(new View.OnClickListener() {
                     @Override
