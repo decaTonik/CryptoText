@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FindFriendViewHlder extends RecyclerView.ViewHolder{
-    CircleImageView profileImageUrl;
-    TextView username;
+    CircleImageView ImageUrl;
+    TextView name;
     public FindFriendViewHlder(@NonNull View itemView) {
         super(itemView);
-        profileImageUrl= itemView.findViewById((R.id.profileImage));
-        username=itemView.findViewById((R.id.username));
+        ImageUrl= itemView.findViewById((R.id.profileImage));
+        name=itemView.findViewById((R.id.username));
     }
 }

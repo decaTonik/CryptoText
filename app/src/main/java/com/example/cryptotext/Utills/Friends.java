@@ -1,29 +1,29 @@
 package com.example.cryptotext.Utills;
 
 public class Friends {
-    private String profileImageUrl, username;
-
-    public Friends(String profileImageUrl, String username){
-        this.profileImageUrl=profileImageUrl;
-        this.username=username;
-    }
+    private String ImageUrl, name;
 
     public Friends() {
     }
 
-    public String getProfileImageUrl() {
-        return profileImageUrl;
+    public Friends(String imageUrl, String name) {
+        ImageUrl = imageUrl;
+        this.name = name;
     }
 
-    public void setProfileImageUrl(String profileImageUrl) {
-        this.profileImageUrl = profileImageUrl;
+    public String getImageUrl() {
+        return ImageUrl;
     }
 
-    public String getUsername() {
-        return username;
+    public void setImageUrl(String imageUrl) {
+        ImageUrl = imageUrl;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

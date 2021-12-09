@@ -57,8 +57,8 @@ public class FriendActivity extends AppCompatActivity {
         adapter=new FirebaseRecyclerAdapter<Friends, FindFriendViewHlder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull FindFriendViewHlder holder, int position, @NonNull Friends model) {
-                Picasso.get().load(model.getProfileImageUrl()).into(holder.profileImageUrl);
-                holder.username.setText(model.getUsername());
+                Picasso.get().load(model.getImageUrl()).into(holder.ImageUrl);
+                holder.name.setText(model.getName());
             }
 
             @NonNull
