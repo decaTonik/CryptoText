@@ -52,10 +52,10 @@
             <ImageButton
                 android:id="@+id/image_encryption"
                 android:layout_width="250dp"
-                android:layout_height="150dp"
+                android:layout_height="160dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="32dp"
-                android:background="@drawable/aes_btn" />
+                android:background="@drawable/btn_img_encrypt" />
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
