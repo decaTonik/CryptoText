@@ -9,8 +9,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.DownloadManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import com.example.cryptotext.Utills.Users;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -41,7 +45,7 @@ public class FindFriendActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Find Friend");
+        getSupportActionBar().setTitle("Find Friends");
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -59,8 +63,16 @@ public class FindFriendActivity extends AppCompatActivity {
         adapter = new FirebaseRecyclerAdapter<Users, FindFriendViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull FindFriendViewHolder holder, int position, @NonNull Users model) {
-                Picasso.get().load(model.getImageUrl()).into(holder.profileImage);
-                holder.name.setText(model.getName());
+                if(!mUser.getUid().equals(getRef(position).getKey().toString()))
+                {
+                    Picasso.get().load(model.getImageUrl()).into(holder.profileImage);
+                    holder.name.setText(model.getName());
+                }
+                else
+                {
+                    holder.itemView.setVisibility(View.GONE);
+                    holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
+                }
 
             }
 
@@ -75,5 +87,27 @@ public class FindFriendActivity extends AppCompatActivity {
         };
         adapter.startListening();
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.search_menu, menu);
+        MenuItem menuItem = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                LoadUser(newText);
+                return false;
+            }
+        });
+
+        return true;
     }
 }
