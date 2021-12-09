@@ -64,6 +64,99 @@ public class ViewFriendActivity extends AppCompatActivity {
             }
         });
 
+        CheckUserExistence(userID);
+
+    }
+
+    private void CheckUserExistence(String userID) {
+        friendRef.child(mUser.getUid()).child(userID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists())
+                {
+                    currentState = "friend";
+                    btnPerform.setText("Friends");
+                    btnDecline.setText("Unfriend");
+                    btnDecline.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        friendRef.child(userID).child(mUser.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists())
+                {
+                    currentState = "friend";
+                    btnPerform.setText("Friends");
+                    btnDecline.setText("Unfriend");
+                    btnDecline.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        requestRef.child(mUser.getUid()).child(userID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists())
+                {
+                    if(snapshot.child("status").getValue().toString().equals("pending"))
+                    {
+                        currentState = "I_sent_pending";
+                        btnPerform.setText("Cancel Friend Request");
+                        btnDecline.setVisibility(View.GONE);
+                    }
+                    if(snapshot.child("status").getValue().toString().equals("decline"))
+                    {
+                        currentState = "I_sent_decline";
+                        btnPerform.setText("Cancel Friend Request");
+                        btnDecline.setVisibility(View.GONE);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        requestRef.child(userID).child(mUser.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists())
+                {
+                    if(snapshot.child("status").getValue().toString().equals("pending"))
+                    {
+                        currentState = "he_sent_pending";
+                        btnPerform.setText("Accept Friend Request");
+                        btnDecline.setText("Decline Friend Request");
+                        btnDecline.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        if(currentState.equals("nothing_happen"))
+        {
+            currentState = "nothing_happen";
+            btnPerform.setText("Send Friend Request");
+            btnDecline.setVisibility(View.GONE);
+        }
     }
 
     private void performAction(String userID) {
@@ -110,7 +203,7 @@ public class ViewFriendActivity extends AppCompatActivity {
         }
         if(currentState.equals("he_sent_pending"))
         {
-            requestRef.child(mUser.getUid()).child(userID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+            requestRef.child(userID).child(mUser.getUid()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful())
@@ -128,7 +221,7 @@ public class ViewFriendActivity extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task task) {
                                             Toast.makeText(ViewFriendActivity.this, "Friend Added", Toast.LENGTH_SHORT).show();
-                                            currentState = "friends";
+                                            currentState = "friend";
                                             btnPerform.setClickable(false);
                                             btnPerform.setText("Friends");
                                             btnDecline.setText("Unfriend");
