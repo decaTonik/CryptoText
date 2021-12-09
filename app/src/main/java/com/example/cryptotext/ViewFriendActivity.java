@@ -102,15 +102,15 @@ public class ViewFriendActivity extends AppCompatActivity {
         if(currentState.equals("he_sent_pending"))
         {
             HashMap hashMap = new HashMap();
-            hashMap.put("status", "decline");
+            hashMap.put("status", "declined");
 
-            friendRef.child(userID).child(mUser.getUid()).updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener() {
+            requestRef.child(userID).child(mUser.getUid()).updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(@NonNull Task task) {
                     if(task.isSuccessful())
                     {
                         Toast.makeText(ViewFriendActivity.this, "Friend Request Declined", Toast.LENGTH_SHORT).show();
-                        currentState = "nothing_happen";
+                        currentState = "declined_request";
                         btnDecline.setVisibility(View.GONE);
                         btnPerform.setText("Send Friend Request");
                     }
@@ -173,6 +173,12 @@ public class ViewFriendActivity extends AppCompatActivity {
                         btnPerform.setText("Cancel Friend Request");
                         btnDecline.setVisibility(View.GONE);
                     }
+                    if(snapshot.child("status").getValue().toString().equals("declined"))
+                    {
+                        currentState = "nothing_happen";
+                        btnPerform.setText("Send Friend Request");
+                        btnDecline.setVisibility(View.GONE);
+                    }
                 }
             }
 
@@ -233,7 +239,7 @@ public class ViewFriendActivity extends AppCompatActivity {
                 }
             });
         }
-        if(currentState.equals("I_sent_pending") || currentState.equals("I_sent_decline"))
+        if(currentState.equals("I_sent_pending") || currentState.equals("I_sent_decline") || currentState.equals("declined"))
         {
             requestRef.child(mUser.getUid()).child(userID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override

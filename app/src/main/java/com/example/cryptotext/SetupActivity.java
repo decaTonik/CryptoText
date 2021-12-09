@@ -177,6 +177,7 @@ public class SetupActivity extends AppCompatActivity{
                                         startActivity(intent);
                                         mLoadingBar.dismiss();
                                         Toast.makeText(SetupActivity.this, "Setup Profile Complete", Toast.LENGTH_SHORT).show();
+                                        finish();
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
