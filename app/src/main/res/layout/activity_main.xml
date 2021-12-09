@@ -11,54 +11,56 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+            <include
+                android:id="@+id/app_bar"
+                layout="@layout/main_appbar" />
 
-        <include
-            android:id="@+id/app_bar"
-            layout="@layout/main_appbar" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/app_bar">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/app_bar">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="32dp"
+                    android:text="Choose Algorithm"
+                    android:textColor="@color/orange"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="32dp"
-                android:text="Choose Algorithm"
-                android:textColor="@color/orange"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                <ImageButton
+                    android:id="@+id/rsa"
+                    android:layout_width="250dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="32dp"
+                    android:background="@drawable/rsa_btn" />
 
-            <ImageButton
-                android:id="@+id/rsa"
-                android:layout_width="250dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="32dp"
-                android:background="@drawable/rsa_btn" />
+                <ImageButton
+                    android:id="@+id/aes"
+                    android:layout_width="250dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="32dp"
+                    android:background="@drawable/aes_btn" />
 
-            <ImageButton
-                android:id="@+id/aes"
-                android:layout_width="250dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="32dp"
-                android:background="@drawable/aes_btn" />
+                <ImageButton
+                    android:id="@+id/image_encryption"
+                    android:layout_width="250dp"
+                    android:layout_height="160dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="32dp"
+                    android:background="@drawable/btn_img_encrypt" />
 
-            <ImageButton
-                android:id="@+id/image_encryption"
-                android:layout_width="250dp"
-                android:layout_height="160dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="32dp"
-                android:background="@drawable/btn_img_encrypt" />
+            </LinearLayout>
 
-        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navView"
