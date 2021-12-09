@@ -12,8 +12,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,6 +32,7 @@ import com.squareup.picasso.Picasso;
 
 public class RSA extends SetupActivity {
 
+    private static final int REQUEST_CODE = 101;
     EditText rsaInput, userInput;
     Button enc_btn, clear_btn;
     ImageButton main_enc, main_dec, go_btn, main_enc_orange, main_dec_orange, go_orange, send_btn, cpy_btn, new_btn, logout_btn;
@@ -43,6 +46,8 @@ public class RSA extends SetupActivity {
     DatabaseReference mUserRef;
     RecyclerView recyclerView;
     Button friendbtn;
+
+    String publicKey;
 
 
     @Override
@@ -68,8 +73,6 @@ public class RSA extends SetupActivity {
         mUser = mAuth.getCurrentUser();
 
         friendbtn = findViewById(R.id.selectFriend);
-        friendbtn.setVisibility(View.VISIBLE);
-
         rsaInput = findViewById(R.id.rsa_inputTextarea);
         main_enc = findViewById(R.id.enc);
         main_dec = findViewById(R.id.decrypt);
@@ -102,11 +105,24 @@ public class RSA extends SetupActivity {
                 main_enc_orange.setVisibility(View.VISIBLE);
                 main_dec_orange.setVisibility(View.INVISIBLE);
                 main_dec.setVisibility(View.VISIBLE);
+                UPc.setVisibility(View.VISIBLE);
+
+                friendbtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(), PublicKeyFriendActivity.class);
+                        startActivityForResult(intent, REQUEST_CODE);
+                    }
+                });
+
+                friendbtn.setText(publicKey);
+
+
 
 //                main_dec.setVisibility(View.VISIBLE);
 //                main_dec_orange.setVisibility(View.INVISIBLE);
 //                userInput.setText("");
-//                UPc.setVisibility(View.VISIBLE);
+
 //                send_btn.setVisibility(View.INVISIBLE);
 //                cpy_btn.setVisibility(View.INVISIBLE);
 //                new_btn.setVisibility(View.INVISIBLE);
@@ -161,4 +177,15 @@ public class RSA extends SetupActivity {
         recyclerView.setAdapter(adapter);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null)
+        {
+            publicKey = data.getStringExtra("RESULT_STRING");
+            Toast.makeText(this, ""+publicKey, Toast.LENGTH_SHORT).show();
+        }
+
+    }
 }
