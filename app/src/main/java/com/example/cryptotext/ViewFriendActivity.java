@@ -66,6 +66,57 @@ public class ViewFriendActivity extends AppCompatActivity {
 
         CheckUserExistence(userID);
 
+        btnDecline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Unfriend(userID);
+            }
+        });
+
+    }
+
+    private void Unfriend(String userID) {
+        if(currentState.equals("friend"))
+        {
+            friendRef.child(mUser.getUid()).child(userID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful())
+                    {
+                        friendRef.child(userID).child(mUser.getUid()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful())
+                                {
+                                    Toast.makeText(ViewFriendActivity.this, "Friend Removed", Toast.LENGTH_SHORT).show();
+                                    currentState = "nothing_happen";
+                                    btnPerform.setText("Send Friend Request");
+                                    btnDecline.setVisibility(View.GONE);
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+        }
+        if(currentState.equals("he_sent_pending"))
+        {
+            HashMap hashMap = new HashMap();
+            hashMap.put("status", "decline");
+
+            friendRef.child(userID).child(mUser.getUid()).updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener() {
+                @Override
+                public void onComplete(@NonNull Task task) {
+                    if(task.isSuccessful())
+                    {
+                        Toast.makeText(ViewFriendActivity.this, "Friend Request Declined", Toast.LENGTH_SHORT).show();
+                        currentState = "he_sent_decline";
+                        btnDecline.setVisibility(View.GONE);
+                        btnPerform.setVisibility(View.GONE);
+                    }
+                }
+            });
+        }
     }
 
     private void CheckUserExistence(String userID) {
