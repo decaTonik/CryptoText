@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CryptoText">
+        <activity android:name=".PublicKeyFriendActivity"></activity>
         <activity
             android:name=".FriendActivity"
             android:exported="true" />

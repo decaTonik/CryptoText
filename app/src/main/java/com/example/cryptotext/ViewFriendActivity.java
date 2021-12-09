@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.security.PublicKey;
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -32,7 +33,7 @@ public class ViewFriendActivity extends AppCompatActivity {
 
     CircleImageView profileImage;
     TextView name;
-    String ImageUrl, username;
+    String ImageUrl, username, publicKey;
     Button btnPerform, btnDecline;
     String currentState = "nothing_happen";
 
@@ -269,6 +270,7 @@ public class ViewFriendActivity extends AppCompatActivity {
                         hashMap.put("status", "friend");
                         hashMap.put("name", username);
                         hashMap.put("ImageUrl", ImageUrl);
+                        hashMap.put("public", publicKey);
                         friendRef.child(mUser.getUid()).child(userID).updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener() {
                             @Override
                             public void onComplete(@NonNull Task task) {
@@ -302,6 +304,7 @@ public class ViewFriendActivity extends AppCompatActivity {
                 {
                     ImageUrl = snapshot.child("ImageUrl").getValue().toString();
                     username = snapshot.child("name").getValue().toString();
+                    publicKey = snapshot.child("publicKey").getValue().toString();
 
                     Picasso.get().load(ImageUrl).into(profileImage);
                     name.setText(username);

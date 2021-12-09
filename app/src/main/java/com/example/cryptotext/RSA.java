@@ -42,7 +42,7 @@ public class RSA extends SetupActivity {
     FirebaseUser mUser;
     DatabaseReference mUserRef;
     RecyclerView recyclerView;
-    Button frindbtn;
+    Button friendbtn;
 
 
     @Override
@@ -67,8 +67,8 @@ public class RSA extends SetupActivity {
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
 
-        frindbtn = findViewById(R.id.selectFriend);
-        frindbtn.setVisibility(View.VISIBLE);
+        friendbtn = findViewById(R.id.selectFriend);
+        friendbtn.setVisibility(View.VISIBLE);
 
         rsaInput = findViewById(R.id.rsa_inputTextarea);
         main_enc = findViewById(R.id.enc);
@@ -100,17 +100,31 @@ public class RSA extends SetupActivity {
             public void onClick(View v) {
                 main_enc.setVisibility(View.INVISIBLE);
                 main_enc_orange.setVisibility(View.VISIBLE);
-
-                main_dec.setVisibility(View.VISIBLE);
                 main_dec_orange.setVisibility(View.INVISIBLE);
-                userInput.setText("");
-                UPc.setVisibility(View.VISIBLE);
-                send_btn.setVisibility(View.INVISIBLE);
-                cpy_btn.setVisibility(View.INVISIBLE);
-                new_btn.setVisibility(View.INVISIBLE);
-                downC.setVisibility(View.INVISIBLE);
+                main_dec.setVisibility(View.VISIBLE);
+
+//                main_dec.setVisibility(View.VISIBLE);
+//                main_dec_orange.setVisibility(View.INVISIBLE);
+//                userInput.setText("");
+//                UPc.setVisibility(View.VISIBLE);
+//                send_btn.setVisibility(View.INVISIBLE);
+//                cpy_btn.setVisibility(View.INVISIBLE);
+//                new_btn.setVisibility(View.INVISIBLE);
+//                downC.setVisibility(View.INVISIBLE);
             }
             });
+
+        main_dec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                main_dec.setVisibility(View.INVISIBLE);
+                main_dec_orange.setVisibility(View.VISIBLE);
+                main_enc_orange.setVisibility((View.INVISIBLE));
+                main_enc.setVisibility(View.VISIBLE);
+
+
+            }
+        });
 
     }
 
@@ -146,8 +160,5 @@ public class RSA extends SetupActivity {
         adapter.startListening();
         recyclerView.setAdapter(adapter);
     }
-
-
-
 
 }
