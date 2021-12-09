@@ -147,6 +147,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.profile:
                 startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                 break;
+            case R.id.friend:
+                startActivity(new Intent(MainActivity.this, FriendActivity.class));
+                break;
             case R.id.findFriend:
                 startActivity(new Intent(MainActivity.this, FindFriendActivity.class));
                 break;

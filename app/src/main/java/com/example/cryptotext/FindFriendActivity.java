@@ -195,6 +195,9 @@ public class FindFriendActivity extends AppCompatActivity implements NavigationV
             case R.id.profile:
                 startActivity(new Intent(FindFriendActivity.this, ProfileActivity.class));
                 break;
+            case R.id.friend:
+                startActivity(new Intent(FindFriendActivity.this, FriendActivity.class));
+                break;
             case R.id.findFriend:
                 startActivity(new Intent(FindFriendActivity.this, FindFriendActivity.class));
                 break;

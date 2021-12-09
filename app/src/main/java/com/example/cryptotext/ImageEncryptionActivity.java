@@ -395,6 +395,9 @@ public class    ImageEncryptionActivity extends AppCompatActivity implements Nav
             case R.id.profile:
                 startActivity(new Intent(ImageEncryptionActivity.this, ProfileActivity.class));
                 break;
+            case R.id.friend:
+                startActivity(new Intent(ImageEncryptionActivity.this, FriendActivity.class));
+                break;
             case R.id.findFriend:
                 startActivity(new Intent(ImageEncryptionActivity.this, FindFriendActivity.class));
                 break;

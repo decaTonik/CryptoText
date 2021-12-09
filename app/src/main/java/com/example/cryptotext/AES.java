@@ -307,6 +307,9 @@ public class AES extends AppCompatActivity implements NavigationView.OnNavigatio
             case R.id.profile:
                 startActivity(new Intent(AES.this, ProfileActivity.class));
                 break;
+            case R.id.friend:
+                startActivity(new Intent(AES.this, FriendActivity.class));
+                break;
             case R.id.findFriend:
                 startActivity(new Intent(AES.this, FindFriendActivity.class));
                 break;
