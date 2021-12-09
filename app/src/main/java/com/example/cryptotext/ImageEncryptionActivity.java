@@ -189,6 +189,9 @@ public class    ImageEncryptionActivity extends AppCompatActivity {
             uri = data.getData();
             imageEncryptionInput.setImageURI(uri);
         }
+        else{
+            Toast.makeText(ImageEncryptionActivity.this, "Add valid image", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private byte[] getBytes(InputStream inputStream) throws IOException {
