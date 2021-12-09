@@ -96,8 +96,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.navView);
-
         View view = navigationView.inflateHeaderView(R.layout.drawer_header);
+
         profileImageHeader = view.findViewById(R.id.profileImage_header);
         usernameHeader = view.findViewById(R.id.username_header);
 
