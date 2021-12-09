@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.cryptotext.Utills.Friends;
@@ -18,6 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.squareup.picasso.Picasso;
 
 public class FriendActivity extends AppCompatActivity {
 
@@ -50,19 +52,23 @@ public class FriendActivity extends AppCompatActivity {
     }
 
     private void LoadFriends(String s) {
-        Query query=mRef.child(mUser.getUid());
+        Query query=mRef.child(mUser.getUid()).orderByChild("name").startAt(s).endAt(s+"\uf8ff");
         options=new FirebaseRecyclerOptions.Builder<Friends>().setQuery(query,Friends.class).build();
         adapter=new FirebaseRecyclerAdapter<Friends, FindFriendViewHlder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull FindFriendViewHlder holder, int position, @NonNull Friends model) {
-                View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.single_view_friend,parent,false);
+                Picasso.get().load(model.getProfileImageUrl()).into(holder.profileImageUrl);
+                holder.username.setText(model.getUsername());
             }
 
             @NonNull
             @Override
             public FindFriendViewHlder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                return null;
+                View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.single_view_friend,parent,false);
+                return new FindFriendViewHlder(view);
             }
         };
+        adapter.startListening();
+        recyclerView.setAdapter(adapter);
     }
 }
