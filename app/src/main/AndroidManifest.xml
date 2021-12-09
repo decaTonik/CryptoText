@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CryptoText">
-        <activity android:name=".ProfileActivity"></activity>
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:exported="true" />
+        <activity android:name=".ProfileActivity" />
         <activity android:name=".FindFriendActivity" />
         <activity android:name=".ImageEncryptionActivity" />
         <activity android:name=".AES" />
