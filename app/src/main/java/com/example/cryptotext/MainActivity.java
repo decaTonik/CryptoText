@@ -151,13 +151,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(MainActivity.this, FindFriendActivity.class));
                 break;
             case R.id.invite:
-                Toast.makeText(this, "Invite", Toast.LENGTH_SHORT).show();
+                invite();
                 break;
             case R.id.logout:
                 Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
                 break;
         }
         return true;
+    }
+
+    private void invite() {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "https://github.com/decaTonik/CryptoText");
+        sendIntent.setType("text/plain");
+        startActivity(sendIntent);
     }
 
     @Override

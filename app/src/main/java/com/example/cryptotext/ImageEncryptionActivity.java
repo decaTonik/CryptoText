@@ -218,6 +218,22 @@ public class    ImageEncryptionActivity extends AppCompatActivity {
         cip.init(Cipher.DECRYPT_MODE,key);
         byte[] decryptedByteValue = Base64.decode(message,Base64.DEFAULT);
         byte[] decryptedVale = cip.doFinal(decryptedByteValue);
+        InputStream iStream = null;
+        try {
+            iStream = getContentResolver().openInputStream(uri);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        byte[] imageBytes = new byte[0];
+        try {
+            imageBytes = getBytes(iStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for(int i = 0; i<imageBytes.length; i++)
+            if(imageBytes[i] != decryptedVale[i])
+                Toast.makeText(ImageEncryptionActivity.this, "ajao sex kare", Toast.LENGTH_SHORT).show();
+
         return Base64.encodeToString(decryptedVale,Base64.DEFAULT);
 
 
