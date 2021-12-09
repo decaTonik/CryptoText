@@ -98,6 +98,7 @@ public class SetupActivity extends AppCompatActivity{
         PrivateKey privateKey = keyP.getPrivate();
         byte[] privateKeyBytes = privateKey.getEncoded();
         privateKeyBytesBase64 = new String(Base64.encode(privateKeyBytes, Base64.DEFAULT));
+        privateKeyBytesBase64 = privateKeyBytesBase64.replaceAll("(\\r|\\n)", "");
 
         profileImageView.setOnClickListener(new View.OnClickListener() {
             @Override

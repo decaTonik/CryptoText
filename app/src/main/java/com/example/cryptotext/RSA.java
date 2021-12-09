@@ -82,12 +82,6 @@ public class RSA extends SetupActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_r_s_a);
 
-
-
-
-        //recyclerView = findViewById(R.id.recyclerView);
-        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         mUserRef = FirebaseDatabase.getInstance().getReference().child("Friends");
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
@@ -117,6 +111,7 @@ public class RSA extends SetupActivity {
                 main_enc_orange.setVisibility(View.VISIBLE);
                 main_dec_orange.setVisibility(View.INVISIBLE);
                 main_dec.setVisibility(View.VISIBLE);
+                friendbtn.setVisibility(View.VISIBLE);
                 UPc.setVisibility(View.VISIBLE);
                 main_dec_orange.setVisibility(View.INVISIBLE);
                 UPc.setVisibility(View.VISIBLE);
@@ -160,7 +155,7 @@ public class RSA extends SetupActivity {
                         imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                         String input = rsaInput.getText().toString();
-                        String clearText = Rsa_dec(input, privateKeyBytesBase64);
+                            String clearText = Rsa_dec(input, privateKeyBytesBase64);
                         if(clearText.length() == 0){
                             Toast.makeText(RSA.this, "Incorrect Cipher Text", Toast.LENGTH_SHORT).show();
                         }
@@ -174,39 +169,6 @@ public class RSA extends SetupActivity {
             }
         });
 
-    }
-
-
-    private void LoadUser(String s) {
-        Query query = mUserRef.orderByChild("name").startAt(s).endAt(s+"\uf8ff");
-        options = new FirebaseRecyclerOptions.Builder<Users>().setQuery(query, Users.class).build();
-        adapter = new FirebaseRecyclerAdapter<Users, FindFriendViewHolder>(options) {
-            @Override
-            protected void onBindViewHolder(@NonNull FindFriendViewHolder holder, int position, @NonNull Users model) {
-                if(!mUser.getUid().equals(getRef(position).getKey().toString()))
-                {
-                    Picasso.get().load(model.getImageUrl()).into(holder.profileImage);
-                    holder.name.setText(model.getName());
-                }
-                else
-                {
-                    holder.itemView.setVisibility(View.GONE);
-                    holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
-                }
-
-            }
-
-            @NonNull
-            @Override
-            public FindFriendViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_view_find_friend, parent, false);
-
-                return new FindFriendViewHolder(view);
-            }
-        };
-        adapter.startListening();
-        recyclerView.setAdapter(adapter);
     }
 
     @Override
