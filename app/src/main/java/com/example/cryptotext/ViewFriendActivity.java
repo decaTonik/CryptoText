@@ -270,9 +270,9 @@ public class ViewFriendActivity extends AppCompatActivity {
                     {
                         HashMap hashMap = new HashMap();
                         hashMap.put("status", "friend");
-                        hashMap.put("name", mUserRef.child("name").toString());
-                        hashMap.put("ImageUrl", mUserRef.child("ImageUrl").toString());
-                        hashMap.put("publicKey", mUserRef.child("publicKey").toString());
+                        hashMap.put("name", username);
+                        hashMap.put("ImageUrl", ImageUrl);
+                        hashMap.put("publicKey", publicKey);
                         friendRef.child(mUser.getUid()).child(userID).updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener() {
                             @Override
                             public void onComplete(@NonNull Task task) {
@@ -280,9 +280,9 @@ public class ViewFriendActivity extends AppCompatActivity {
                                 {
                                     HashMap hashMap1 = new HashMap();
                                     hashMap1.put("status", "friend");
-                                    hashMap1.put("name", mUserRef1.child("name").toString());
-                                    hashMap1.put("ImageUrl", mUserRef1.child("ImageUrl").toString());
-                                    hashMap1.put("publicKey", mUserRef1.child("publicKey").toString());
+                                    hashMap1.put("name", username1);
+                                    hashMap1.put("ImageUrl", ImageUrl1);
+                                    hashMap1.put("public", publicKey1);
                                     friendRef.child(userID).child(mUser.getUid()).updateChildren(hashMap1).addOnCompleteListener(new OnCompleteListener() {
                                         @Override
                                         public void onComplete(@NonNull Task task) {
