@@ -6,6 +6,7 @@
         <entry key="..\:/Users/tiwar/AndroidStudioProjects/CryptoText/app/src/main/res/layout/activity_a_e_s.xml" value="0.1118659420289855" />
         <entry key="..\:/Users/tiwar/AndroidStudioProjects/CryptoText/app/src/main/res/layout/activity_find_friend.xml" value="0.19739583333333333" />
         <entry key="..\:/Users/tiwar/AndroidStudioProjects/CryptoText/app/src/main/res/layout/activity_forgot_password.xml" value="0.19739583333333333" />
+        <entry key="..\:/Users/tiwar/AndroidStudioProjects/CryptoText/app/src/main/res/layout/activity_friend.xml" value="0.19739583333333333" />
         <entry key="..\:/Users/tiwar/AndroidStudioProjects/CryptoText/app/src/main/res/layout/activity_image_encryption.xml" value="0.1118659420289855" />
         <entry key="..\:/Users/tiwar/AndroidStudioProjects/CryptoText/app/src/main/res/layout/activity_main.xml" value="0.196875" />
         <entry key="..\:/Users/tiwar/AndroidStudioProjects/CryptoText/app/src/main/res/layout/activity_profile.xml" value="0.19739583333333333" />
@@ -13,9 +14,7 @@
         <entry key="..\:/Users/tiwar/AndroidStudioProjects/CryptoText/app/src/main/res/layout/activity_splash.xml" value="0.19739583333333333" />
         <entry key="..\:/Users/tiwar/AndroidStudioProjects/CryptoText/app/src/main/res/layout/drawer_header.xml" value="0.196875" />
         <entry key="..\:/Users/tiwar/AndroidStudioProjects/CryptoText/app/src/main/res/layout/single_view_find_friend.xml" value="0.196875" />
-        <entry key="app/src/main/res/layout/activity_friend.xml" value="0.28940217391304346" />
-        <entry key="app/src/main/res/layout/single_view_find_friend.xml" value="0.28940217391304346" />
-        <entry key="app/src/main/res/layout/single_view_friend.xml" value="0.28940217391304346" />
+        <entry key="..\:/Users/tiwar/AndroidStudioProjects/CryptoText/app/src/main/res/layout/single_view_friend.xml" value="0.1983695652173913" />
         <entry key="app/src/main/res/menu/drawer_menu.xml" value="0.18703703703703703" />
       </map>
     </option>

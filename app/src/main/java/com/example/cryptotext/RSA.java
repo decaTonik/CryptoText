@@ -24,13 +24,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cryptotext.Utills.Users;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -51,7 +55,9 @@ import java.security.spec.X509EncodedKeySpec;
 
 import javax.crypto.Cipher;
 
-public class RSA extends AppCompatActivity {
+import de.hdodenhof.circleimageview.CircleImageView;
+
+public class RSA extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final int REQUEST_CODE = 101;
     private static final int REQUEST_CODE_PRIVATE = 105;
@@ -61,6 +67,7 @@ public class RSA extends AppCompatActivity {
     ConstraintLayout downC, UPc;
     TextView output, input_TV, output_TV;
 
+
     FirebaseRecyclerOptions<Users>options;
     FirebaseRecyclerAdapter<Users, FindFriendViewHolder>adapter;
     FirebaseAuth mAuth;
@@ -68,6 +75,12 @@ public class RSA extends AppCompatActivity {
     DatabaseReference mUserRef;
     RecyclerView recyclerView;
     Button friendbtn;
+    String profileImageUrlV,userNameV;
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    CircleImageView profileImageHeader;
+    TextView usernameHeader;
+    Toolbar toolbar;
 
     String publicKey, privateKeyBytesBase64;
 
@@ -77,6 +90,42 @@ public class RSA extends AppCompatActivity {
     public void onBackPressed() {
         Intent i = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(i);
+        finish();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(mUser == null)
+        {
+            SendUserToLoginActivity();
+        }
+        else
+        {
+            mUserRef.child(mUser.getUid()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists())
+                    {
+                        profileImageUrlV = snapshot.child("ImageUrl").getValue().toString();
+                        userNameV = snapshot.child("name").getValue().toString();
+                        Picasso.get().load(profileImageUrlV).into(profileImageHeader);
+                        usernameHeader.setText(userNameV);
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(RSA.this, "Sorry!, Something went Wrong", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    private void SendUserToLoginActivity() {
+        Intent intent = new Intent(RSA.this, LoginActivity.class);
+        startActivity(intent);
         finish();
     }
 
@@ -106,6 +155,21 @@ public class RSA extends AppCompatActivity {
         UPc = findViewById(R.id.constraintLayout2);
         input_TV = findViewById(R.id.rsa_inputTV);
         output_TV = findViewById(R.id.rsa_outputTV);
+
+        toolbar = findViewById(R.id.app_bar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("AES");
+        drawerLayout = findViewById(R.id.drawerLayout);
+        navigationView = findViewById(R.id.navView);
+
+        View view = navigationView.inflateHeaderView(R.layout.drawer_header);
+        profileImageHeader = view.findViewById(R.id.profileImage_header);
+        usernameHeader = view.findViewById(R.id.username_header);
+
+        navigationView.setNavigationItemSelectedListener(this);
+
+
+
 
         main_enc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -304,4 +368,50 @@ public class RSA extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId())
+        {
+            case R.id.home:
+                startActivity(new Intent(RSA.this, MainActivity.class));
+                break;
+            case R.id.profile:
+                startActivity(new Intent(RSA.this, ProfileActivity.class));
+                break;
+            case R.id.friend:
+                startActivity(new Intent(RSA.this, FriendActivity.class));
+                break;
+            case R.id.findFriend:
+                startActivity(new Intent(RSA.this, FindFriendActivity.class));
+                break;
+            case R.id.invite:
+                invite();
+                break;
+            case R.id.logout:
+                mAuth.signOut();
+                Intent intent=new Intent(RSA.this,LoginActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+        }
+        return true;
+    }
+
+    private void invite() {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "https://github.com/decaTonik/CryptoText");
+        sendIntent.setType("text/plain");
+        startActivity(sendIntent);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == android.R.id.home)
+        {
+            drawerLayout.openDrawer(GravityCompat.START);
+            return true;
+        }
+        return true;
+    }
 }
