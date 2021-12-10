@@ -72,7 +72,7 @@ public class RSA extends AppCompatActivity implements NavigationView.OnNavigatio
     FirebaseRecyclerAdapter<Users, FindFriendViewHolder>adapter;
     FirebaseAuth mAuth;
     FirebaseUser mUser;
-    DatabaseReference mUserRef;
+    DatabaseReference mUserRef, mUserRef1;
     RecyclerView recyclerView;
     Button friendbtn;
     String profileImageUrlV,userNameV;
@@ -102,7 +102,7 @@ public class RSA extends AppCompatActivity implements NavigationView.OnNavigatio
         }
         else
         {
-            mUserRef.child(mUser.getUid()).addValueEventListener(new ValueEventListener() {
+            mUserRef1.child(mUser.getUid()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(snapshot.exists())
@@ -138,6 +138,9 @@ public class RSA extends AppCompatActivity implements NavigationView.OnNavigatio
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
 
+
+        mUserRef1 = FirebaseDatabase.getInstance().getReference().child("Users");
+
         friendbtn = findViewById(R.id.selectFriend);
         rsaInput = findViewById(R.id.rsa_inputTextarea);
         main_enc = findViewById(R.id.enc);
@@ -158,7 +161,7 @@ public class RSA extends AppCompatActivity implements NavigationView.OnNavigatio
 
         toolbar = findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("AES");
+        getSupportActionBar().setTitle("RSA");
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.navView);
 
