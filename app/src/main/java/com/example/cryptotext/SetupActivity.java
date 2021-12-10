@@ -174,6 +174,7 @@ public class SetupActivity extends AppCompatActivity{
                                     @Override
                                     public void onSuccess(Object o) {
                                         Intent intent = new Intent(SetupActivity.this, MainActivity.class);
+                                        intent.putExtra("privateKey", privateKeyBytesBase64);
                                         startActivity(intent);
                                         mLoadingBar.dismiss();
                                         Toast.makeText(SetupActivity.this, "Setup Profile Complete", Toast.LENGTH_SHORT).show();

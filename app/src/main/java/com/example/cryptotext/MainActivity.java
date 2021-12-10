@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DatabaseReference mUserRef;
     String profileImageUrlV,userNameV;
 
+    String privateKeyBytesBase64;
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -83,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        privateKeyBytesBase64 = getIntent().getStringExtra("privateKey");
 
         rsa = findViewById(R.id.rsa);
         aes = findViewById(R.id.aes);
@@ -112,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), RSA.class);
+                i.putExtra("privateKey", privateKeyBytesBase64);
                 startActivity(i);
                 finish();
             }

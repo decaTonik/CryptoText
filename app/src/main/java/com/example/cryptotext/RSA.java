@@ -23,6 +23,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -50,9 +51,10 @@ import java.security.spec.X509EncodedKeySpec;
 
 import javax.crypto.Cipher;
 
-public class RSA extends SetupActivity {
+public class RSA extends AppCompatActivity {
 
     private static final int REQUEST_CODE = 101;
+    private static final int REQUEST_CODE_PRIVATE = 105;
     EditText rsaInput, userInput;
     Button enc_btn, clear_btn;
     ImageButton main_enc, main_dec, go_btn, main_enc_orange, main_dec_orange, go_orange, send_btn, cpy_btn, new_btn, logout_btn;
@@ -67,7 +69,7 @@ public class RSA extends SetupActivity {
     RecyclerView recyclerView;
     Button friendbtn;
 
-    String publicKey;
+    String publicKey, privateKeyBytesBase64;
 
 
     @Override
@@ -81,6 +83,7 @@ public class RSA extends SetupActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_r_s_a);
+        privateKeyBytesBase64 = getIntent().getStringExtra("privateKey");
 
         mUserRef = FirebaseDatabase.getInstance().getReference().child("Friends");
         mAuth = FirebaseAuth.getInstance();
@@ -170,6 +173,8 @@ public class RSA extends SetupActivity {
         });
 
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
