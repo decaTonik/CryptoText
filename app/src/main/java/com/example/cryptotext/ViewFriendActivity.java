@@ -282,7 +282,7 @@ public class ViewFriendActivity extends AppCompatActivity {
                                     hashMap1.put("status", "friend");
                                     hashMap1.put("name", username1);
                                     hashMap1.put("ImageUrl", ImageUrl1);
-                                    hashMap1.put("public", publicKey1);
+                                    hashMap1.put("publicKey", publicKey1);
                                     friendRef.child(userID).child(mUser.getUid()).updateChildren(hashMap1).addOnCompleteListener(new OnCompleteListener() {
                                         @Override
                                         public void onComplete(@NonNull Task task) {

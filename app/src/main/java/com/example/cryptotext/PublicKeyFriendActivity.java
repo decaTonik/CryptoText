@@ -85,7 +85,7 @@ public class PublicKeyFriendActivity extends AppCompatActivity {
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 for(DataSnapshot sp : snapshot.getChildren())
                                 {
-                                    publicKey = sp.child("public").getValue().toString();
+                                    publicKey = sp.child("publicKey").getValue().toString();
                                 }
                                 Intent intent=new Intent();
                                 intent.putExtra("RESULT_STRING", publicKey);
